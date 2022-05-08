@@ -4,3 +4,5 @@
 https://sklearn-genetic-opt.readthedocs.io/en/stable/index.html#sklearn-genetic-opt
 
 Parser for command-line options is implemented
+
+Script: GA_based_selection.py
