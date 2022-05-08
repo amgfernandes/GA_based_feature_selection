@@ -1,6 +1,6 @@
 # %%
 import pandas as pd
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
 import seaborn as sns
 import argparse
 import logging
@@ -21,10 +21,8 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split
 # %%
 dataset = pd.read_csv('diabetes.csv')
-dataset
 
 # %%
-
 '''data and labels'''
 X = dataset.iloc[:,:-1]
 y = dataset['Outcome']
@@ -37,28 +35,27 @@ X_test_trans = quantile_transformer.transform(X_test)
 
 '''convert back to dataframes'''
 X_train_trans = pd.DataFrame(X_train_trans,columns = dataset.columns[:-1])
-
 X_test_trans = pd.DataFrame(X_test_trans,columns = dataset.columns[:-1])
+
 # %%
 clf = GradientBoostingClassifier(n_estimators=10)
 
-
 def run_GA(generations, population_size,crossover_probability):
-    
+
     evolved_estimator = GAFeatureSelectionCV(
         estimator=clf,
-        cv=3,
+        cv=5,
         scoring="accuracy",
         population_size=population_size,
         generations=generations,
         n_jobs=-1,
         crossover_probability=crossover_probability,
         verbose=True,
-        max_features=5,
-        keep_top_k=4,
-        elitism=True,
-    )
-  
+        max_features=None,
+        keep_top_k=3,
+        elitism=True
+        )
+
     callback = ProgressBar()
     evolved_estimator.fit(X_train_trans, y_train, callbacks=callback)
     features = evolved_estimator.best_features_
@@ -75,19 +72,16 @@ def run_GA(generations, population_size,crossover_probability):
     history= evolved_estimator.history
     return cv_results, history
 
-
-
 # %%
 def main(generations):
     print("Running main function")
-    
-    cv_results, history =run_GA(generations=generations, 
+
+    cv_results, history =run_GA(generations=generations,
                                 population_size=population_size,
                                 crossover_probability=crossover_probability)
     results_df= pd.DataFrame(cv_results)
     results_df.to_csv('results_df.csv')
 
-    
     history_df= pd.DataFrame(history)
     history_df.to_csv('history_df.csv')
 
@@ -101,8 +95,8 @@ def main(generations):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Running GA based feature selection')
-    parser.add_argument('--generations', '-g', default=10)
-    parser.add_argument('--population_size', '-p',default=50)
+    parser.add_argument('--generations', '-g', default=30)
+    parser.add_argument('--population_size', '-p',default=30)
     parser.add_argument('--crossover_probability', '-c',default=0.1)
 
     parser.add_argument('--outdir', help='Location for saving log. Default current directory', default=os. getcwd())
@@ -127,14 +121,11 @@ if __name__ == '__main__':
     start_time = time.time()
     hr_start_time = datetime.datetime.fromtimestamp(start_time).strftime('%Y-%m-%d %H:%M:%S')
     logging.info(f"starting time: {hr_start_time}")
-    TOTAL_TIME = f'Total time required: {time.time() - start_time} seconds'
-
     history_df = main(generations=generations)
-
+    TOTAL_TIME = f'Total time required: {time.time() - start_time} seconds'
     hr_end_time = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
     logging.info(f"End time: {hr_end_time}")
     logging.info(f"Generations: {generations}")
     logging.info(f"Max fitness: {history_df.fitness.max()}")
     logging.info(TOTAL_TIME)
     logging.info('done!')
-    

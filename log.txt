@@ -1,6 +1,6 @@
-INFO:starting time: 2022-05-08 16:32:44
-INFO:End time: 2022-05-08 16:32:52
-INFO:Generations: 10
-INFO:Max fitness: 0.7470760233918128
-INFO:Total time required: 0.00018405914306640625 seconds
+INFO:starting time: 2022-05-08 20:15:43
+INFO:End time: 2022-05-08 20:15:56
+INFO:Generations: 30
+INFO:Max fitness: 0.7645726251665718
+INFO:Total time required: 13.015824317932129 seconds
 INFO:done!
