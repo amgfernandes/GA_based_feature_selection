@@ -73,7 +73,7 @@ def run_GA(generations, population_size,crossover_probability):
     return cv_results, history
 
 # %%
-def main(generations):
+def main():
     print("Running main function")
 
     cv_results, history =run_GA(generations=generations,
@@ -103,9 +103,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
     print(vars(args))
 
-    generations= int(args.generations)
-    population_size= int(args.population_size)
-    crossover_probability=int(args.crossover_probability)
+    generations = int(args.generations)
+    population_size = int(args.population_size)
+    crossover_probability =float(args.crossover_probability)
 
     RESULTS_DIR = args.outdir
 
@@ -121,7 +121,7 @@ if __name__ == '__main__':
     start_time = time.time()
     hr_start_time = datetime.datetime.fromtimestamp(start_time).strftime('%Y-%m-%d %H:%M:%S')
     logging.info(f"starting time: {hr_start_time}")
-    history_df = main(generations=generations)
+    history_df = main()
     TOTAL_TIME = f'Total time required: {time.time() - start_time} seconds'
     hr_end_time = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
     logging.info(f"End time: {hr_end_time}")
