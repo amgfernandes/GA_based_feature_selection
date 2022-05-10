@@ -32,7 +32,7 @@ if additional_columns_to_drop is not None:
     additional_columns =dataset[additional_columns_to_drop]
     X = dataset.drop([Target, additional_columns_to_drop], axis=1)
 else:
-     X = dataset.drop(Target, axis=1)
+    X = dataset.drop(Target, axis=1)
 
 
 quantile_transformer = preprocessing.QuantileTransformer(random_state=0)
@@ -112,7 +112,7 @@ if __name__ == '__main__':
     parser.add_argument('--population_size', '-p',default=30)
     parser.add_argument('--crossover_probability', '-c',default=0.1)
 
-    parser.add_argument('--outdir', help='Location for saving log. Default current directory', default=os. getcwd())
+    parser.add_argument('--outdir', help='Location for saving log. Default current directory', default=os.getcwd())
     args = parser.parse_args()
     print(vars(args))
 
