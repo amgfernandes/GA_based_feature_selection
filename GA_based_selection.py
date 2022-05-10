@@ -18,14 +18,21 @@ from sklearn_genetic.callbacks import ProgressBar
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split
 # %%
-dataset = pd.read_csv('data/parkinsons_data.csv')
+dataset = pd.read_csv('data/diabetes.csv')
 dataset.columns
 
 # %%
 '''data and labels'''
-y = dataset['status']
-names=dataset['name']
-X = dataset.drop(['status', 'name'], axis=1)
+Target = 'Outcome'
+y = dataset[Target ]
+
+additional_columns_to_drop = None
+
+if additional_columns_to_drop is not None:
+    additional_columns =dataset[additional_columns_to_drop]
+    X = dataset.drop([Target, additional_columns_to_drop], axis=1)
+else:
+     X = dataset.drop(Target, axis=1)
 
 
 quantile_transformer = preprocessing.QuantileTransformer(random_state=0)
@@ -40,7 +47,12 @@ X_test_trans = pd.DataFrame(X_test_trans,columns = X.columns)
 
 # %%
 clf = GradientBoostingClassifier(n_estimators=10)
+clf.fit(X_train_trans, y_train)
+y_predict = clf.predict(X_test_trans)
+accuracy_no_GA = accuracy_score(y_test, y_predict)
+print("accuracy score without GA selection: ", "{:.2}".format(accuracy_no_GA))
 
+# %%
 def run_GA(generations, population_size,crossover_probability):
 
     evolved_estimator = GAFeatureSelectionCV(
@@ -125,8 +137,10 @@ if __name__ == '__main__':
     history_df = main()
     TOTAL_TIME = f'Total time required: {time.time() - start_time} seconds'
     hr_end_time = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+    
+    logging.info(f"Max accuracy with all features: {accuracy_no_GA}")
     logging.info(f"End time: {hr_end_time}")
     logging.info(f"Generations: {generations}")
-    logging.info(f"Max fitness: {history_df.fitness.max()}")
+    logging.info(f"Max fitness with selection: {history_df.fitness.max()}")
     logging.info(TOTAL_TIME)
     logging.info('done!')

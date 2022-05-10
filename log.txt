@@ -1,6 +1,7 @@
-INFO:starting time: 2022-05-10 15:09:33
-INFO:End time: 2022-05-10 15:09:52
+INFO:starting time: 2022-05-10 15:32:22
+INFO:Max accuracy with all features: 0.7480314960629921
+INFO:End time: 2022-05-10 15:32:39
 INFO:Generations: 30
-INFO:Max fitness: 0.8923076923076926
-INFO:Total time required: 18.58669924736023 seconds
+INFO:Max fitness with selection: 0.7645726251665718
+INFO:Total time required: 17.90533137321472 seconds
 INFO:done!
