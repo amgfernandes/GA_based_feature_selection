@@ -8,8 +8,6 @@ import time
 import datetime
 import os
 
-
-
 '''GA based approach'''
 from sklearn import preprocessing
 from sklearn.svm import SVC
@@ -20,12 +18,15 @@ from sklearn_genetic.callbacks import ProgressBar
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split
 # %%
-dataset = pd.read_csv('diabetes.csv')
+dataset = pd.read_csv('data/parkinsons_data.csv')
+dataset.columns
 
 # %%
 '''data and labels'''
-X = dataset.iloc[:,:-1]
-y = dataset['Outcome']
+y = dataset['status']
+names=dataset['name']
+X = dataset.drop(['status', 'name'], axis=1)
+
 
 quantile_transformer = preprocessing.QuantileTransformer(random_state=0)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=0)
@@ -34,8 +35,8 @@ X_train_trans = quantile_transformer.fit_transform(X_train)
 X_test_trans = quantile_transformer.transform(X_test)
 
 '''convert back to dataframes'''
-X_train_trans = pd.DataFrame(X_train_trans,columns = dataset.columns[:-1])
-X_test_trans = pd.DataFrame(X_test_trans,columns = dataset.columns[:-1])
+X_train_trans = pd.DataFrame(X_train_trans,columns = X.columns)
+X_test_trans = pd.DataFrame(X_test_trans,columns = X.columns)
 
 # %%
 clf = GradientBoostingClassifier(n_estimators=10)
