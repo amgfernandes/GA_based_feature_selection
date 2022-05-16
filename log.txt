@@ -1,7 +1,14 @@
-INFO:starting time: 2022-05-10 15:32:22
-INFO:Max accuracy with all features: 0.7480314960629921
-INFO:End time: 2022-05-10 15:32:39
-INFO:Generations: 30
-INFO:Max fitness with selection: 0.7645726251665718
-INFO:Total time required: 17.90533137321472 seconds
+INFO:starting time: 2022-05-16 22:49:26
+INFO:Number of generations : 5
+INFO:Population_size: 10
+INFO:Crossover_probability : 0.1
+INFO:Max accuracy with all features: 0.9230769230769231
+INFO:End time: 2022-05-16 22:49:29
+INFO:Generations: 5
+INFO:Max fitness with selection: 0.8692307692307695
+INFO:Selected features:, Index(['MDVP:Fo(Hz)', 'MDVP:Fhi(Hz)', 'MDVP:Flo(Hz)', 'MDVP:Jitter(%)',
+       'MDVP:Jitter(Abs)', 'MDVP:PPQ', 'Jitter:DDP', 'Shimmer:DDA', 'NHR',
+       'DFA', 'spread2', 'D2', 'PPE'],
+      dtype='object')
+INFO:Total time required: 3.4026191234588623 seconds
 INFO:done!
