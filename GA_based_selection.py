@@ -29,10 +29,11 @@ y = dataset[Target ]
 additional_columns_to_drop = None
 
 if additional_columns_to_drop is not None:
-    additional_columns =dataset[additional_columns_to_drop]
-    X = dataset.drop([Target, additional_columns_to_drop], axis=1)
+    additional_columns = additional_columns_to_drop
+    X = dataset.drop(columns= additional_columns_to_drop)
+    X = X.drop(columns= [Target])
 else:
-    X = dataset.drop(Target, axis=1)
+    X = dataset.drop(columns= [Target])
 
 
 quantile_transformer = preprocessing.QuantileTransformer(random_state=0)
