@@ -43,8 +43,8 @@ X_train_trans = quantile_transformer.fit_transform(X_train)
 X_test_trans = quantile_transformer.transform(X_test)
 
 '''convert back to dataframes'''
-X_train_trans = pd.DataFrame(X_train_trans,columns = X.columns)
-X_test_trans = pd.DataFrame(X_test_trans,columns = X.columns)
+X_train_trans = pd.DataFrame(X_train_trans,columns=X.columns)
+X_test_trans = pd.DataFrame(X_test_trans,columns=X.columns)
 
 # %%
 clf = GradientBoostingClassifier(n_estimators=10)
@@ -108,7 +108,7 @@ def main():
 #%%
 
 if __name__ == '__main__':
-
+    
     parser = argparse.ArgumentParser(description='Running GA based feature selection')
     parser.add_argument('--generations', '-g', default=30)
     parser.add_argument('--population_size', '-p',default=30)
@@ -123,14 +123,13 @@ if __name__ == '__main__':
 
     RESULTS_DIR = args.outdir
 
-    print(generations)
-
     LOG_FILE = os.path.join(RESULTS_DIR, f'log.txt')
     if os.path.exists(LOG_FILE):
         os.remove(LOG_FILE)
     logging.basicConfig(format='%(levelname)s:%(message)s',
                         level=logging.INFO,
-                        handlers=[logging.FileHandler(LOG_FILE), logging.StreamHandler()])
+                        handlers=[logging.FileHandler(LOG_FILE), 
+                        logging.StreamHandler()])
 
     start_time = time.time()
     hr_start_time = datetime.datetime.fromtimestamp(start_time).strftime('%Y-%m-%d %H:%M:%S')
@@ -138,7 +137,9 @@ if __name__ == '__main__':
     history_df, selected_features = main()
     TOTAL_TIME = f'Total time required: {time.time() - start_time} seconds'
     hr_end_time = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
-    
+    logging.info(f"Number of generations : {generations}")
+    logging.info(f"Population_size: { population_size}")
+    logging.info(f"Crossover_probability : {crossover_probability}")
     logging.info(f"Max accuracy with all features: {accuracy_no_GA}")
     logging.info(f"End time: {hr_end_time}")
     logging.info(f"Generations: {generations}")
