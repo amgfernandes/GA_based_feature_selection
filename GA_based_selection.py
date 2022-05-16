@@ -18,20 +18,20 @@ from sklearn_genetic.callbacks import ProgressBar
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split
 # %%
-dataset = pd.read_csv('data/diabetes.csv')
+dataset = pd.read_csv('data/parkinsons_data.csv')
 dataset.columns
 
 # %%
 '''data and labels'''
-Target = 'Outcome'
-y = dataset[Target ]
+Target = 'status'
+y = dataset[Target]
 
-additional_columns_to_drop = None
+additional_columns_to_drop = 'name'
 
 if additional_columns_to_drop is not None:
-    additional_columns = additional_columns_to_drop
-    X = dataset.drop(columns= additional_columns_to_drop)
-    X = X.drop(columns= [Target])
+    additional_columns=additional_columns_to_drop
+    X = dataset.drop(columns=additional_columns_to_drop)
+    X = X.drop(columns=[Target])
 else:
     X = dataset.drop(columns= [Target])
 
@@ -81,16 +81,17 @@ def run_GA(generations, population_size,crossover_probability):
     plot_fitness_evolution(evolved_estimator, metric="fitness")
     plt.savefig('fitness.png')
 
-    print(f'Selected features:', X_test_trans.iloc[:,features].columns)
+    #print(f'Selected features:', X_test_trans.iloc[:,features].columns)
+    selected_features= X_test_trans.iloc[:,features].columns
     cv_results= evolved_estimator.cv_results_
     history= evolved_estimator.history
-    return cv_results, history
+    return cv_results, history, selected_features
 
 # %%
 def main():
     print("Running main function")
 
-    cv_results, history =run_GA(generations=generations,
+    cv_results, history, selected_features =run_GA(generations=generations,
                                 population_size=population_size,
                                 crossover_probability=crossover_probability)
     results_df= pd.DataFrame(cv_results)
@@ -102,7 +103,7 @@ def main():
     plt.figure()
     sns.violinplot(data=history_df.iloc[:,1:])
     plt.savefig('history_results.png')
-    return history_df
+    return history_df, selected_features
 
 #%%
 
@@ -112,7 +113,6 @@ if __name__ == '__main__':
     parser.add_argument('--generations', '-g', default=30)
     parser.add_argument('--population_size', '-p',default=30)
     parser.add_argument('--crossover_probability', '-c',default=0.1)
-
     parser.add_argument('--outdir', help='Location for saving log. Default current directory', default=os.getcwd())
     args = parser.parse_args()
     print(vars(args))
@@ -135,7 +135,7 @@ if __name__ == '__main__':
     start_time = time.time()
     hr_start_time = datetime.datetime.fromtimestamp(start_time).strftime('%Y-%m-%d %H:%M:%S')
     logging.info(f"starting time: {hr_start_time}")
-    history_df = main()
+    history_df, selected_features = main()
     TOTAL_TIME = f'Total time required: {time.time() - start_time} seconds'
     hr_end_time = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
     
@@ -143,5 +143,6 @@ if __name__ == '__main__':
     logging.info(f"End time: {hr_end_time}")
     logging.info(f"Generations: {generations}")
     logging.info(f"Max fitness with selection: {history_df.fitness.max()}")
+    logging.info(f"Selected features:, {selected_features}")
     logging.info(TOTAL_TIME)
     logging.info('done!')
