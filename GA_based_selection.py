@@ -28,6 +28,7 @@ y = dataset[Target]
 
 additional_columns_to_drop = 'name'
 
+
 if additional_columns_to_drop is not None:
     additional_columns=additional_columns_to_drop
     X = dataset.drop(columns=additional_columns_to_drop)
@@ -65,7 +66,7 @@ def run_GA(generations, population_size,crossover_probability):
         n_jobs=-1,
         crossover_probability=crossover_probability,
         verbose=True,
-        max_features=None,
+        max_features=60,
         keep_top_k=3,
         elitism=True
         )
@@ -103,15 +104,18 @@ def main():
     plt.figure()
     sns.violinplot(data=history_df.iloc[:,1:])
     plt.savefig('history_results.png')
+
+    pd.DataFrame(selected_features).to_csv(str(hr_start_time) +'_selected_features.csv')
+
     return history_df, selected_features
 
 #%%
 
 if __name__ == '__main__':
-    
+
     parser = argparse.ArgumentParser(description='Running GA based feature selection')
-    parser.add_argument('--generations', '-g', default=30)
-    parser.add_argument('--population_size', '-p',default=30)
+    parser.add_argument('--generations', '-g', default=5)
+    parser.add_argument('--population_size', '-p',default=8)
     parser.add_argument('--crossover_probability', '-c',default=0.1)
     parser.add_argument('--outdir', help='Location for saving log. Default current directory', default=os.getcwd())
     args = parser.parse_args()
@@ -128,7 +132,7 @@ if __name__ == '__main__':
         os.remove(LOG_FILE)
     logging.basicConfig(format='%(levelname)s:%(message)s',
                         level=logging.INFO,
-                        handlers=[logging.FileHandler(LOG_FILE), 
+                        handlers=[logging.FileHandler(LOG_FILE),
                         logging.StreamHandler()])
 
     start_time = time.time()
