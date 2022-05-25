@@ -28,6 +28,7 @@ y = dataset[Target]
 
 additional_columns_to_drop = 'name'
 
+
 if additional_columns_to_drop is not None:
     additional_columns=additional_columns_to_drop
     X = dataset.drop(columns=additional_columns_to_drop)
@@ -54,7 +55,7 @@ accuracy_no_GA = accuracy_score(y_test, y_predict)
 print("accuracy score without GA selection: ", "{:.2}".format(accuracy_no_GA))
 
 # %%
-def run_GA(generations, population_size,crossover_probability):
+def run_GA(generations,population_size,crossover_probability,max_features):
 
     evolved_estimator = GAFeatureSelectionCV(
         estimator=clf,
@@ -65,7 +66,11 @@ def run_GA(generations, population_size,crossover_probability):
         n_jobs=-1,
         crossover_probability=crossover_probability,
         verbose=True,
-        max_features=None,
+<<<<<<< Updated upstream
+        max_features=60,
+=======
+        max_features= max_features,
+>>>>>>> Stashed changes
         keep_top_k=3,
         elitism=True
         )
@@ -93,7 +98,8 @@ def main():
 
     cv_results, history, selected_features =run_GA(generations=generations,
                                 population_size=population_size,
-                                crossover_probability=crossover_probability)
+                                crossover_probability=crossover_probability,
+                                max_features=max_features)
     results_df= pd.DataFrame(cv_results)
     results_df.to_csv('results_df.csv')
 
@@ -103,16 +109,20 @@ def main():
     plt.figure()
     sns.violinplot(data=history_df.iloc[:,1:])
     plt.savefig('history_results.png')
+
+    pd.DataFrame(selected_features).to_csv(str(hr_start_time) +'_selected_features.csv')
+
     return history_df, selected_features
 
 #%%
 
 if __name__ == '__main__':
-    
+
     parser = argparse.ArgumentParser(description='Running GA based feature selection')
-    parser.add_argument('--generations', '-g', default=30)
-    parser.add_argument('--population_size', '-p',default=30)
+    parser.add_argument('--generations', '-g', default=5)
+    parser.add_argument('--population_size', '-p',default=8)
     parser.add_argument('--crossover_probability', '-c',default=0.1)
+    parser.add_argument('--max_features', '-m', default=None)
     parser.add_argument('--outdir', help='Location for saving log. Default current directory', default=os.getcwd())
     args = parser.parse_args()
     print(vars(args))
@@ -121,6 +131,13 @@ if __name__ == '__main__':
     population_size = int(args.population_size)
     crossover_probability =float(args.crossover_probability)
 
+    if args.max_features is not None:
+        print ("max_features has been set (value is %s)" % args.max_features)
+        max_features = int(args.max_features)
+    else:
+        max_features = None
+        print ("max_features has been set (value is %s)" % args.max_features)
+
     RESULTS_DIR = args.outdir
 
     LOG_FILE = os.path.join(RESULTS_DIR, f'log.txt')
@@ -128,7 +145,7 @@ if __name__ == '__main__':
         os.remove(LOG_FILE)
     logging.basicConfig(format='%(levelname)s:%(message)s',
                         level=logging.INFO,
-                        handlers=[logging.FileHandler(LOG_FILE), 
+                        handlers=[logging.FileHandler(LOG_FILE),
                         logging.StreamHandler()])
 
     start_time = time.time()
@@ -138,6 +155,7 @@ if __name__ == '__main__':
     TOTAL_TIME = f'Total time required: {time.time() - start_time} seconds'
     hr_end_time = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
     logging.info(f"Number of generations: {generations}")
+    logging.info(f"Number of features max allowed: {max_features}")
     logging.info(f"Population_size: { population_size}")
     logging.info(f"Crossover_probability: {crossover_probability}")
     logging.info(f"Max accuracy with all features: {accuracy_no_GA}")
