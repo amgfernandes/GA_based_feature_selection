@@ -136,7 +136,7 @@ if __name__ == '__main__':
         max_features = int(args.max_features)
     else:
         max_features = None
-        print ("max_features has been set (value is %s)" % args.max_features)
+        print ("max_features has not been set (value is %s)" % args.max_features)
 
     RESULTS_DIR = args.outdir
 
