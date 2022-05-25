@@ -18,16 +18,15 @@ from sklearn_genetic.callbacks import ProgressBar
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split
 # %%
-dataset = pd.read_csv('data/full_dataset.csv')
-dataset.dropna(inplace=True)
+dataset = pd.read_csv('data/parkinsons_data.csv')
 dataset.columns
 
 # %%
 '''data and labels'''
-Target = 'cytotoxicity_binary'
+Target = 'status'
 y = dataset[Target]
 
-additional_columns_to_drop = ['barcode', 'well_key', 'treatment', 'cytotoxicity_score']
+additional_columns_to_drop = 'name'
 
 
 if additional_columns_to_drop is not None:
