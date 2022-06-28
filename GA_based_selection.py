@@ -24,7 +24,11 @@ dataset.columns
 # %%
 '''data and labels'''
 Target = 'status'
-y = dataset[Target]
+
+Label=dataset[Target]
+
+le = preprocessing.LabelEncoder()
+y = le.fit_transform(Label)
 
 additional_columns_to_drop = 'name'
 
