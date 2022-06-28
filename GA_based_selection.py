@@ -66,11 +66,7 @@ def run_GA(generations,population_size,crossover_probability,max_features):
         n_jobs=-1,
         crossover_probability=crossover_probability,
         verbose=True,
-<<<<<<< Updated upstream
-        max_features=60,
-=======
         max_features= max_features,
->>>>>>> Stashed changes
         keep_top_k=3,
         elitism=True
         )
