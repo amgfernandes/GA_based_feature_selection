@@ -6,6 +6,9 @@ https://sklearn-genetic-opt.readthedocs.io/en/stable/index.html#sklearn-genetic-
 Parser for command-line options is implemented
 
 ### Install
+
+Example with new env named feature_selection
+
 ```
 conda create -n feature_selection
 
