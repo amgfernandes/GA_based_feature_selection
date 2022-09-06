@@ -10,11 +10,11 @@ Parser for command-line options is implemented
 Example with new env named feature_selection
 
 ```
-conda create -n feature_selection
+conda create -n feature_selection -y
 
 conda activate feature_selection
 
-conda install pip
+conda install pip -y
 
 pip install -r requirements.txt
  ```
@@ -28,3 +28,11 @@ Run in the terminal:
 
 - Run with: 
 `python GA_based_selection.py` with the appropriate arguments
+
+### Arguments:
+```
+'--generations', '-g', default=5
+'--population_size', '-p',default=8
+'--crossover_probability', '-c',default=0.1
+'--max_features', '-m', default=10
+```
