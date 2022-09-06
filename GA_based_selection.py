@@ -122,7 +122,7 @@ if __name__ == '__main__':
     parser.add_argument('--generations', '-g', default=5)
     parser.add_argument('--population_size', '-p',default=8)
     parser.add_argument('--crossover_probability', '-c',default=0.1)
-    parser.add_argument('--max_features', '-m', default=10)
+    parser.add_argument('--max_features', '-m', default=None)
     parser.add_argument('--outdir', help='Location for saving log. Default current directory', default=os.getcwd())
     args = parser.parse_args()
     print(vars(args))
