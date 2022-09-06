@@ -36,3 +36,6 @@ Run in the terminal:
 '--crossover_probability', '-c', default=0.1
 '--max_features', '-m', default=10
 ```
+###  Notes:
+
+A log file and csv files are generated with parameters and selected features. Some plots for evaluation are also created.
