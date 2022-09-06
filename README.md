@@ -32,7 +32,7 @@ Run in the terminal:
 ### Arguments:
 ```
 '--generations', '-g', default=5
-'--population_size', '-p',default=8
-'--crossover_probability', '-c',default=0.1
+'--population_size', '-p', default=8
+'--crossover_probability', '-c', default=0.1
 '--max_features', '-m', default=10
 ```
