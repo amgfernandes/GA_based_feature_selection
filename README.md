@@ -5,6 +5,17 @@ https://sklearn-genetic-opt.readthedocs.io/en/stable/index.html#sklearn-genetic-
 
 Parser for command-line options is implemented
 
+### Install
+```
+conda create -n feature_selection
+
+conda activate feature_selection
+
+conda install pip
+
+pip install -r requirements.txt
+ ```
+
 Script: GA_based_selection.py
 
 Run in the terminal: 
