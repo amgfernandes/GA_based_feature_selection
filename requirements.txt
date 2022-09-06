@@ -5,9 +5,7 @@ seaborn
 sklearn_genetic_opt
 
 
-'''
-This option will install all the extra requirements if needed,
-except for Tensorflow, 
-'''
+
+# This option will install all the extra requirements if needed, except for Tensorflow, 
 
 # sklearn-genetic-opt[all]
