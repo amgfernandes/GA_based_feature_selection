@@ -7,7 +7,7 @@ Parser for command-line options is implemented
 
 ### Install
 
-Example with new env named feature_selection
+Example with new environment named `feature_selection`
 
 ```
 conda create -n feature_selection -y
