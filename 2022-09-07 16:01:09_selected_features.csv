@@ -1,0 +1,14 @@
+,0
+0,MDVP:Fo(Hz)
+1,MDVP:Flo(Hz)
+2,MDVP:Jitter(%)
+3,MDVP:Jitter(Abs)
+4,MDVP:Shimmer(dB)
+5,Shimmer:APQ3
+6,Shimmer:APQ5
+7,MDVP:APQ
+8,Shimmer:DDA
+9,HNR
+10,spread2
+11,D2
+12,PPE
