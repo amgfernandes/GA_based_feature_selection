@@ -1,11 +1,13 @@
-INFO:starting time: 2022-09-06 16:22:52
-INFO:Number of generations: 3
-INFO:Number of features max allowed: 10
-INFO:Population_size: 8
-INFO:Crossover_probability: 0.1
+INFO:starting time: 2022-09-07 15:57:26
+INFO:Number of generations: 5
+INFO:Number of features max allowed: 12
+INFO:Population_size: 10
+INFO:Crossover_probability: 0.2
 INFO:Max accuracy with all features: 0.9230769230769231
-INFO:End time: 2022-09-06 16:22:59
-INFO:Max fitness with selection: 0.8413461538461537
-INFO:Selected features:, Index(['MDVP:Fo(Hz)', 'MDVP:PPQ', 'Shimmer:APQ3', 'NHR', 'PPE'], dtype='object')
-INFO:Total time required: 7.0093748569488525 seconds
+INFO:End time: 2022-09-07 15:57:34
+INFO:Max fitness with selection: 0.8600000000000001
+INFO:Selected features:, Index(['MDVP:Fhi(Hz)', 'MDVP:Flo(Hz)', 'MDVP:Jitter(%)', 'Jitter:DDP', 'NHR',
+       'HNR', 'RPDE', 'DFA', 'spread2'],
+      dtype='object')
+INFO:Total time required: 8.01322078704834 seconds
 INFO:done!
