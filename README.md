@@ -29,6 +29,12 @@ Run in the terminal:
 - Run with: 
 `python GA_based_selection.py` with the appropriate arguments
 
+Example:
+
+```
+python GA_based_selection.py -g 5 -p 10 -c 0.2 -m 12
+```
+
 ### Arguments:
 ```
 '--generations', '-g', default=5
