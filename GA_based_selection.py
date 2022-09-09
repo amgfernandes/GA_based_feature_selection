@@ -18,19 +18,19 @@ from sklearn_genetic.callbacks import ProgressBar
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split
 # %%
-dataset = pd.read_csv('data/parkinsons_data.csv')
+dataset = pd.read_csv('data/diabetes.csv')
 dataset.columns
 
 # %%
 '''data and labels'''
-Target = 'status'
+Target = 'Outcome'
 
 Label=dataset[Target]
 
 le = preprocessing.LabelEncoder()
 y = le.fit_transform(Label)
 
-additional_columns_to_drop = 'name'
+additional_columns_to_drop = None
 
 
 if additional_columns_to_drop is not None:
@@ -81,7 +81,6 @@ def run_GA(generations,population_size,crossover_probability,max_features):
     y_predict_ga = evolved_estimator.predict(X_test_trans.iloc[:,features])
     accuracy = accuracy_score(y_test, y_predict_ga)
     print(evolved_estimator.best_features_)
-    print("accuracy score: ", "{:.2}".format(accuracy))
     plt.figure()
     plot_fitness_evolution(evolved_estimator, metric="fitness")
     plt.savefig('fitness.png')
@@ -149,11 +148,11 @@ if __name__ == '__main__':
                         logging.StreamHandler()])
 
     start_time = time.time()
-    hr_start_time = datetime.datetime.fromtimestamp(start_time).strftime('%Y-%m-%d %H:%M:%S')
+    hr_start_time = datetime.datetime.fromtimestamp(start_time).strftime('%Y%m%d_%H-%M-%S')
     logging.info(f"starting time: {hr_start_time}")
     history_df, selected_features = main()
     TOTAL_TIME = f'Total time required: {time.time() - start_time} seconds'
-    hr_end_time = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+    hr_end_time = datetime.datetime.fromtimestamp(time.time()).strftime('%Y%m%d_%H-%M-%S')
     logging.info(f"Number of generations: {generations}")
     logging.info(f"Number of features max allowed: {max_features}")
     logging.info(f"Population_size: { population_size}")
