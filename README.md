@@ -10,7 +10,7 @@ Parser for command-line options is implemented
 Example with new environment named `feature_selection`
 
 ```
-conda create -n feature_selection -y
+conda create -n feature_selection python=3.9 -y
 
 conda activate feature_selection
 

@@ -162,4 +162,4 @@ if __name__ == '__main__':
     logging.info(f"Max fitness with selection: {history_df.fitness.max()}")
     logging.info(f"Selected features:, {selected_features}")
     logging.info(TOTAL_TIME)
-    logging.info('done!')
+    logging.info('Done!')

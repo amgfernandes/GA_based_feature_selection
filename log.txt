@@ -1,11 +1,13 @@
-INFO:starting time: 20220909_08-59-27
-INFO:Number of generations: 100
-INFO:Number of features max allowed: None
-INFO:Population_size: 30
-INFO:Crossover_probability: 0.1
+INFO:starting time: 20240324_15-12-02
+INFO:Number of generations: 5
+INFO:Number of features max allowed: 12
+INFO:Population_size: 10
+INFO:Crossover_probability: 0.2
 INFO:Max accuracy with all features: 0.7480314960629921
-INFO:End time: 20220909_09-01-01
-INFO:Max fitness with selection: 0.7645726251665718
-INFO:Selected features:, Index(['Glucose', 'BMI', 'DiabetesPedigreeFunction', 'Age'], dtype='object')
-INFO:Total time required: 94.16286492347717 seconds
+INFO:End time: 20240324_15-12-07
+INFO:Max fitness with selection: 0.7550580620597754
+INFO:Selected features:, Index(['Glucose', 'BloodPressure', 'Insulin', 'BMI',
+       'DiabetesPedigreeFunction', 'Age'],
+      dtype='object')
+INFO:Total time required: 5.422888994216919 seconds
 INFO:done!
